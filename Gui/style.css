@@ -1,0 +1,181 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+    
+}
+
+th, td {
+    border: 1px solid black;
+    text-align: center;
+    padding: 10px;
+    word-wrap: break-word;
+    cursor: pointer;
+}
+
+input, select {
+    padding: 5px;
+    margin: 10px 0;
+    width: 100%;
+}
+
+button {
+   padding: 10px 30px;
+   background-color:rgb(19, 126, 19);
+
+    color: white;
+    cursor: pointer;
+    border-radius: 20%;
+    border: beige;
+    
+}
+
+
+button:hover {
+    background-color:rgb(2, 111, 2)
+}
+
+.input-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 40px;
+
+    
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 12%;
+}
+.text_right{
+    text-align:right;
+}
+#contextMenu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid black;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+    
+}
+
+#contextMenu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    
+}
+
+#contextMenu ul li {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+#contextMenu ul li:hover {
+    background-color: #f0f0f0;
+}
+
+.highlight {
+    background-color:yellow; 
+    animation: highlightAnimation 5 ease;
+}
+.selected {
+    background-color: rgb(142, 201, 243);
+    color: black;
+}
+
+.menu_line {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #0f0e0e; 
+}
+
+.navbar {
+    display: flex;               
+    justify-content: flex-start; 
+    align-items: center;       
+    padding: 10px 20px;         
+    background-color: #e8edf1;  
+    border-bottom: 1px solid #ccc; 
+    z-index: 1;
+    box-shadow: 0 0 15px 0 rgb(176, 164, 141);
+}
+
+.navbar .deleteButton,
+.navbar .printButton {
+    width: auto;                
+    height: 31px;                
+    padding: 5px 20px;         
+    color: black;                
+    cursor: pointer;            
+    font-size: 16px;             
+    border-radius: 5px;          
+    margin-right: 5px;          
+    background-color: transparent; 
+    border: none;    
+    margin-top: 40px;           
+   
+}
+
+.navbar .deleteButton:hover,
+.navbar .printButton:hover {
+     
+    background-color:  #ccc;
+    /*color:brown*/
+}
+
+.search {
+    display: flex;              
+    align-items: center;  
+    margin-left: 250px;  
+    flex-grow: 1;  
+    padding-top: 0px;        
+}
+
+.search i {
+    margin-left: 5px;         
+}
+
+.search input[type="text"] {
+    padding: 5px;               
+    border: 1px solid #ccc;    
+    border-radius: 4px;         
+    width: 300px;    
+    text-align: right;           
+}
+.print_date{
+    margin-top: 20px;
+}
+.img{
+    margin-left: 300px;
+    width: 50px;
+    height: 50px;
+}
+.background {
+    position: fixed;         /* Fixes the background image in place */
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;             /* Ensures it stays behind all other elements */
+    opacity: 0.2;            /* Set opacity for the image */
+    overflow: hidden;        /* Ensures the image covers the div */
+}
+
+.background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;       /* Ensures the image covers the whole div */
+    opacity: 0.8;            /* Add opacity to the image itself */
+}
