@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desktop</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="/eel.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="print.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <button class="home" onclick="window.location.href='index.html';">
+            <i class="fa fa-arrow-left" style="font-size:20px"></i>
+        </button>
+  
+        <button class="printButton" onclick="printTable()"> 
+            <i class="fas fa-print"></i>
+            print
+        </button>
+        
+
+        <div class="input-group">
+            <label for="massDateFilter" class="print_date"></label>
+            <input type="date" id="massDateFilter">
+            
+        </div>
+        <button class="addButton" onclick="addDate()">
+            <i class="fas fa-plus"></i>
+        </button>
+        <div id="selectedDates" style="margin-top: 10px;">
+          
+        </div>
+        <div>
+            <img src="cross (1).png" alt="" class="icon">
+        </div>
+    </nav>
+
+    <br><br><br><br>
+
+    <div class="background">
+        <img src="god.PNG" alt="">
+    </div>
+
+    <table id="dynamicTable">
+        <thead>
+            <tr>
+                <th>ملاحظه</th>
+                <th>تاريخ القداس</th>
+                <th>الاسم</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script type="text/javascript">
+        var selectedRow = null;
+        var highlightedRow = null;
+
+        // Load data from Python backend when the page loads
+        window.onload = function() {
+            eel.getDataFromBackend()(function(data) {
+                loadData(data);
+            });
+        };
+
+        // Function to load data from the backend and display it in the table
+        function loadData(savedData) {
+            var table = document.getElementById("dynamicTable").getElementsByTagName('tbody')[0];
+            savedData.forEach(function(item) {
+                var newRow = table.insertRow(-1);
+
+                // Ensure the correct column indexes (0, 1, 2) based on the structure of the table
+                newRow.insertCell(0).innerHTML = item.note;      // Column 0
+                newRow.insertCell(1).innerHTML = item.massDate;  // Column 1
+                newRow.insertCell(2).innerHTML = item.name;      // Column 2
+            });
+        }
+
+        // Print function
+       /* function printTable() {
+            var massDateFilter = document.getElementById("massDateFilter").value;
+            var table = document.getElementById("dynamicTable").getElementsByTagName('tbody')[0];
+            var printContent = "<table style='border-collapse: collapse; width: 100%;'><thead><tr><th style='border: 1px solid black; padding: 8px;'>ملاحظه</th><th style='border: 1px solid black; padding: 8px;'>تاريخ القداس</th><th style='border: 1px solid black; padding: 8px;'>الاسم</th></tr></thead><tbody>";
+            var rowAdded = false;
+
+            for (var i = 0; i < table.rows.length; i++) {
+                var rowMassDate = table.rows[i].cells[1].innerText; // Column 1: تاريخ القداس
+                var note = table.rows[i].cells[0].innerText;        // Column 0: ملاحظه
+                var name = table.rows[i].cells[2].innerText;        // Column 2: الاسم
+                
+                if (massDateFilter === "" || rowMassDate === massDateFilter) {
+                    rowAdded = true;
+                    printContent += "<tr>";
+                    printContent += "<td style='border: 1px solid black; padding: 8px;'>" + note + "</td>";
+                    printContent += "<td style='border: 1px solid black; padding: 8px;'>" + rowMassDate + "</td>";
+                    printContent += "<td style='border: 1px solid black; padding: 8px;'>" + name + "</td>";
+                    printContent += "</tr>";
+                }
+            }
+            
+            printContent += "</tbody></table>";
+            
+            if (!rowAdded) {
+                alert("لا يوجد هذا التاريخ")
+            } else {
+                // Open a new window and print the content with additional styles
+                var printWindow = window.open('', '', 'height=800, width=800');
+                printWindow.document.write('<html><head><title>Print Table</title>');
+                printWindow.document.write('<style>body { font-family: Arial, sans-serif; }</style>');
+                printWindow.document.write('</head><body>');
+                printWindow.document.write(printContent);
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+                printWindow.print();
+            }
+            
+            // Clear the input field after printing
+            document.getElementById("massDateFilter").value = "";
+        }*/
+        var selectedDates = [];
+
+function addDate() {
+    var dateInput = document.getElementById("massDateFilter");
+    var selectedDate = dateInput.value;
+
+    if (selectedDate === "") {
+        alert("الرجاء اختيار تاريخ لإضافته");
+        return;
+    }
+
+    if (selectedDates.includes(selectedDate)) {
+        alert("التاريخ مضاف بالفعل");
+        return;
+    }
+
+    // Add the selected date to the list
+    selectedDates.push(selectedDate);
+
+    // Display the selected dates
+    updateSelectedDates();
+
+    // Clear the input field
+    dateInput.value = "";
+}
+
+function updateSelectedDates() {
+    var selectedDatesDiv = document.getElementById("selectedDates");
+    selectedDatesDiv.innerHTML = "";
+
+    selectedDates.forEach(function (date, index) {
+        var dateElement = document.createElement("span");
+        dateElement.style.marginRight = "50px";
+        dateElement.style.textAlign = "right";
+        dateElement.innerHTML = `
+            <span>${date}</span>
+            <button onclick="removeDate(${index})" style="margin-right: 10px; color: black; background-color:red;">x</button>
+        `;
+        selectedDatesDiv.appendChild(dateElement);
+    });
+}
+
+function removeDate(index) {
+    selectedDates.splice(index, 1);
+    updateSelectedDates();
+}
+
+function printTable() {
+    var table = document.getElementById("dynamicTable").getElementsByTagName('tbody')[0];
+    var printContent = "<table style='border-collapse: collapse; width: 100%;'><thead><tr><th style='border: 1px solid black; padding: 8px;'>ملاحظه</th><th style='border: 1px solid black; padding: 8px;'>تاريخ القداس</th><th style='border: 1px solid black; padding: 8px;'>الاسم</th></tr></thead><tbody>";
+    var rowAdded = false;
+
+    for (var i = 0; i < table.rows.length; i++) {
+        var rowMassDate = table.rows[i].cells[1].innerText; // Column 1: تاريخ القداس
+        var note = table.rows[i].cells[0].innerText;        // Column 0: ملاحظه
+        var name = table.rows[i].cells[2].innerText;        // Column 2: الاسم
+
+        if (selectedDates.length === 0 || selectedDates.includes(rowMassDate)) {
+            rowAdded = true;
+            printContent += "<tr>";
+            printContent += "<td style='border: 1px solid black; padding: 8px;'>" + note + "</td>";
+            printContent += "<td style='border: 1px solid black; padding: 8px;'>" + rowMassDate + "</td>";
+            printContent += "<td style='border: 1px solid black; padding: 8px;'>" + name + "</td>";
+            printContent += "</tr>";
+        }
+    }
+
+    printContent += "</tbody></table>";
+
+    if (!rowAdded) {
+        alert("لا توجد تواريخ متطابقة");
+    } else {
+        // Open a new window and print the content with additional styles
+        var printWindow = window.open('', '', 'height=800, width=800');
+        printWindow.document.write('<html><head><title>Print Table</title>');
+        printWindow.document.write('<style>body { font-family: Arial, sans-serif; }</style>');
+        printWindow.document.write('</head><body>');
+        printWindow.document.write(printContent);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.print();
+    }
+
+    // Clear the selected dates after printing
+    selectedDates = [];
+    updateSelectedDates();
+}
+
+    </script>
+
+</body>
+</html>

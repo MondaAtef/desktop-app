@@ -2,28 +2,71 @@ html,body{
     padding: 0;
     margin: 0;
 }
-.img{
-    width: 100%;
-    height: 100%;
-    filter: opacity(0.5);
-    z-index: -99;
-}
-.layer{
-    background-color: white;
-    top: 50%;
-    left: 50%;
-    width: 40%;
-    z-index: 1;
-    transform: translate(-50% , -50%);
-    position: absolute;
-    box-shadow: 0 0 30px gainsboro;
-    padding: 20px;
-    
 
+
+.navbar .home
+{
+    width: auto;                
+    height: 31px;                
+    padding: 5px 20px;         
+    color: black;                
+    cursor: pointer;            
+    font-size: 16px;             
+    border-radius: 5px;          
+    margin-right: 5px;          
+    background-color: transparent; 
+    border: none;    
+    margin-top: 40px;           
+   
 }
-.text_center{
-    text-align: center;
-    position: relative;
-    margin: 15px 1px;
+
+.navbar .home:hover
+{
+    background-color:  #ccc;
+}
+
+.navbar .printButton {
+    display: flex;              
+    align-items: center;  
+    margin-left: 550px;
+    margin-top: 10px;  
+    flex-grow: 1;  
+    padding-top: 0px;   
+    gap: 12px;
+
+  
+}
+.navbar .printButton:hover {    
+    background-color:  #ccc;
+}
+
+.icon{
+    margin-left: 1100px;
+    width: 50px;
+    height: 50px;
+}
+
+.print_date{
+    margin-top: 10px;
+    gap:12px;
+    margin-left: 590px;
+}
+.addButton
+{
+    display: flex;              
+    margin-left: 7px;
+    margin-top: 10px;  
+    border-radius: 0 2px 2px 0;
+    background-color: #eaeff3;
+    color: black;
+    
+}
+.addButton:hover {    
+    background-color:  #ccc;
+}
+#selectedDates
+{
+    display: flex;
+    justify-content: space-between;
 
 }

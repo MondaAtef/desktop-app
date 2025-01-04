@@ -114,6 +114,9 @@ button:hover {
 
 .navbar .deleteButton,
 .navbar .printButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: auto;                
     height: 31px;                
     padding: 5px 20px;         
@@ -138,7 +141,8 @@ button:hover {
 .search {
     display: flex;              
     align-items: center;  
-    margin-left: 250px;  
+    justify-content: center;
+    margin-left: 400px;  
     flex-grow: 1;  
     padding-top: 0px;        
 }
@@ -154,9 +158,7 @@ button:hover {
     width: 300px;    
     text-align: right;           
 }
-.print_date{
-    margin-top: 20px;
-}
+
 .img{
     margin-left: 300px;
     width: 50px;
