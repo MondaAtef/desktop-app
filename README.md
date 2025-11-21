@@ -26,4 +26,14 @@
 - **Eel** (لربط الواجهة الأمامية مع الباك-إند)
 - **HTML / CSS / JavaScript**
 - Local JSON Storage
+## 📂 هيكل المشروع (Project Structure)
+
+project/
+├── main.py
+├── data.json
+├── web/
+│ ├── index.html
+│ ├── style.css
+│ └── script.js
+└── README.md
 
